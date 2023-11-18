@@ -1,0 +1,67 @@
+package P01ClimbingTracker;
+
+public class Test1 {
+
+		public static boolean testSendClimb() {
+			final int LEVELS_CAPACITY = 5;
+			String[] sendArray1 = new String[LEVELS_CAPACITY];
+			String[] sendArray2 = new String[LEVELS_CAPACITY];
+			String[] sendArray3 = new String[LEVELS_CAPACITY];
+			int numSend = 0;
+			
+			//scenario 1 : empty array
+			String grade= null;
+			ClimbingTracker.sendClimb(sendArray1, numSend, grade);
+			if(!(ClimbingTracker.sendClimb(sendArray1, numSend, grade) == 0)) {
+				return false;
+			}
+			
+			//scenario 2 : partially array
+			ClimbingTracker.sendClimb(sendArray2, 1, "V1");
+			ClimbingTracker.sendClimb(sendArray2, 1, "V2");
+			ClimbingTracker.sendClimb(sendArray2, 1, "V3");
+			if(!(ClimbingTracker.sendClimb(sendArray2, numSend, grade) == 3)) {
+				return false;
+			}
+			
+			//scenario 3 : completely full array
+			ClimbingTracker.sendClimb(sendArray3, 1, "V1");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V2");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V3");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V4");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V5");
+			if(!(ClimbingTracker.sendClimb(sendArray3, 5, grade) == 5)) {
+				return false;
+			}
+			return true;
+//			
+//			//scenario 4 : valid and invalid grades
+//			if(!(grade.charAt(0) == 'V' && grade.length() == numSend && Character.isDigit(grade.charAt(1)))) {
+//				return false;
+//			}			
+//			
+//			return true;
+		}
+		public static boolean testFailClimb() {
+			return true;
+		}
+		public static boolean testGetStats(){
+			return true;
+		}
+		public static boolean testGetHistogram(){
+			return true;
+		}
+		public static boolean runAllTests(){
+			if(testFailClimb() == true && testSendClimb() == true) {
+				return true;
+			}
+			return false;
+		}
+		public static void main(String[] args){
+			System.out.print(testSendClimb());
+			
+		}
+
+	}
+
+

@@ -1,0 +1,69 @@
+
+
+public class ClimbingTrackerTester1 {
+	public static boolean testSendClimb() {
+		final int LEVELS_CAPACITY = 5;
+		String[] sendArray = new String[LEVELS_CAPACITY];
+		int numSend = 0;
+		
+		//scenario 1 : empty array
+		String grade= null;
+		for(int i = 0; i < LEVELS_CAPACITY; i++) {
+			sendArray[i] = grade;
+		} 
+		if(!(ClimbingTracker1.sendClimb(sendArray, numSend, grade) == 0)) {
+			return false;
+		}
+		
+		
+		//scenario 2 : partially array
+		for(int i = 0; i < LEVELS_CAPACITY-1; i++) {
+			for(int j = 0; j < LEVELS_CAPACITY-1; j++) {
+				grade = "V"+Integer.toString(j);
+				sendArray[i] = grade;
+				numSend += 1;
+			}
+		}
+		if(!(ClimbingTracker1.sendClimb(sendArray, numSend, grade) == 4)) {
+			return false;
+		}
+		//scenario 3 : completely full array
+		for(int i = 0; i < LEVELS_CAPACITY; i++) {
+			for(int j = 0; j < LEVELS_CAPACITY; j++) {
+				grade = "V"+Integer.toString(j);
+				sendArray[i] = grade;
+			}
+			numSend += 1;
+		}
+		if(!(ClimbingTracker1.sendClimb(sendArray, numSend, grade) == 4)) {
+			return false;
+		}
+		
+		//scenario 4 : valid and invalid grades
+		if(!(grade.charAt(0) == 'V' && grade.length() == numSend && Character.isDigit(grade.charAt(1)))) {
+			return false;
+		}			
+		
+		return true;
+	}
+	public static boolean testFailClimb() {
+		return true;
+	}
+	public static boolean testGetStats(){
+		return true;
+	}
+	public static boolean testGetHistogram(){
+		return true;
+	}
+	public static boolean runAllTests(){
+		if(testFailClimb() == true && testSendClimb() == true) {
+			return true;
+		}
+		return false;
+	}
+	public static void main(String[] args){
+		System.out.print(testSendClimb());
+		
+	}
+}
+

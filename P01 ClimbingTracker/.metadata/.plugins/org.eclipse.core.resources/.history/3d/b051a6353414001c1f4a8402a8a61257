@@ -1,0 +1,74 @@
+
+public class Practice6 {
+
+//	private static int helper(String[] array, int num, String grade){
+//		if (num == array.length) {
+//			return num;
+//		}
+//		for(int i = 0; i < num; i++) {
+//			array[num+totalNum-1-i] = grade;
+//			totalNum = totalNum + num;
+//			System.out.println(totalNum);
+//			System.out.println(totalNumSend);
+//		}
+//		
+//		return totalNum;
+//	}
+	public static int sendClimb(String[] send, int numSend, String grade) {
+		
+	}
+	public static int failClimb(String[] fail, int numFail, String grade) {
+	
+	}
+	public static String getStats(String[] send, int numSend, String[] fail, int numFail, int historyLength) {
+		
+
+		
+	}
+	
+public static void main(String[] args) {
+		final int LEVELS_CAPACITY = 100;
+		String[] sendArray = new String[LEVELS_CAPACITY];
+		String[] failArray = new String[LEVELS_CAPACITY];
+		int sendArraySize = 0;
+		int failArraySize =0 ;
+		
+		sendClimb(sendArray, 1, "V0");
+		sendClimb(sendArray, 1, "V1");
+		sendClimb(sendArray, 2, "V0");
+		printOversizeArray(sendArray, 5);
+	
+		failClimb(failArray, 1, "V2");
+		failClimb(failArray, 1, "V1");
+		overSizeArray(failArray, 5);
+		
+	
+		
+	}
+	public static void printOversizeArray(String[ ]arrayRef, int arraySize) {
+		int index;
+		
+		System.out.print("[");
+		for(index=0; index < arraySize; ++index){
+			System.out.print(arrayRef[index]);
+			if(index != arraySize) {
+				System.out.print(",");
+			}
+		}
+		System.out.print("]  ");
+		System.out.println("numSend: "+ totalNumSend);
+	}
+	public static void overSizeArray(String[ ]arrayRef, int arraySize) {
+		int index;
+		
+		System.out.print("[");
+		for(index=0; index < arraySize; ++index){
+			System.out.print(arrayRef[index]);
+			if(index != arraySize) {
+				System.out.print(",");
+			}
+		}
+		System.out.print("]  ");
+		System.out.println("numFail: "+ totalNumFail);
+	}
+}

@@ -1,0 +1,276 @@
+
+public class ClimbingTrackerTester2 {
+
+	public static boolean testSendClimb() {
+		final int LEVELS_CAPACITY = 5;
+		int sizeArray = 0;
+		int zero = 0;
+		
+		//scenario 1 : empty array
+		String[] sendArray1 = new String[LEVELS_CAPACITY];
+		double expected1 = 0;
+		String grade= null;
+		ClimbingTracker2.sendClimb(sendArray1, zero, grade);
+		if(!(ClimbingTracker2.sendClimb(sendArray1, zero, grade) == expected1)) {
+			System.out.println("failed test1");
+			return false;
+		}
+		
+		//scenario 2 : partially array
+		
+		String[] sendArray2 = new String[LEVELS_CAPACITY];
+		int sendSize2 = 0;
+		
+		double expected2 = 3;
+		ClimbingTracker2.sendClimb(sendArray2, 1, "V1");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray2, 1, "V2");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray2, 1, "V3");
+		sendSize2 += 1;
+
+		if(!(ClimbingTracker2.sendClimb(sendArray2, zero, grade) == expected2)) {
+			System.out.println("failed test2");
+			return false;
+		}
+		
+		//scenario 3 : completely full array
+		String[] sendArray3 = new String[LEVELS_CAPACITY];
+		int sendSize3 = 0;
+		double expected3 = 5;
+		
+		ClimbingTracker2.sendClimb(sendArray3, 1, "V1");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray3, 1, "V2");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray3, 1, "V3");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray3, 1, "V4");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray3, 1, "V5");
+		sendSize2 += 1;
+		if(!(ClimbingTracker2.sendClimb(sendArray3, zero, grade) == expected3)) {
+			System.out.println("failed test3");
+			return false;
+		}
+		return true;
+	}
+	public static boolean testFailClimb() {
+		final int LEVELS_CAPACITY = 5;
+		String[] failArray1 = new String[LEVELS_CAPACITY];
+		int zero = 0;
+		
+		//scenario 1 : empty array
+		String grade= null;
+		ClimbingTracker2.failClimb(failArray1, zero, grade);
+		if(!(ClimbingTracker2.failClimb(failArray1, zero, grade) == 0)) {
+			System.out.println("failed test1");
+			return false;
+		}
+		
+		//scenario 2 : partially array
+		String[] failArray2 = new String[LEVELS_CAPACITY];
+		int failSize2 = 0;
+		int expected2 = 3;
+		
+		ClimbingTracker2.failClimb(failArray2, 1, "V1");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 1, "V2");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 1, "V3");
+		failSize2 += 1;
+		
+		if(!(ClimbingTracker2.failClimb(failArray2, zero, grade) == expected2)) {
+			System.out.println("failed test2");
+			return false;
+		}
+		
+		//scenario 3 : completely full array
+		String[] failArray3 = new String[LEVELS_CAPACITY];
+		int failSize3 = 0;
+		int expected3 = 5;
+		
+		ClimbingTracker2.failClimb(failArray3, 1, "V1");
+		failSize3 += 1;
+		ClimbingTracker2.failClimb(failArray3, 1, "V2");
+		failSize3 += 1;
+		ClimbingTracker2.failClimb(failArray3, 1, "V3");
+		failSize3 += 1;
+		ClimbingTracker2.failClimb(failArray3, 1, "V4");
+		failSize3 += 1;
+		ClimbingTracker2.failClimb(failArray3, 1, "V5");
+		failSize3 += 1;
+		
+		if(!(ClimbingTracker2.failClimb(failArray3, zero, grade) == expected3)) {
+			System.out.println("failed test3");
+			return false;
+		}
+		return true;
+	}
+	public static boolean testGetStats(){
+		final int LEVELS_CAPACITY = 5;
+		
+		//scenario 1 : a mix of grades
+		//배열을 만든다.
+		String[] sendArray1 = new String[LEVELS_CAPACITY];
+		String[] failArray1 = new String[LEVELS_CAPACITY];
+		int sendSize1 = 0;
+		int failSize1 = 0;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V1");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V2");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V3");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V4");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V5");
+		sendSize1 += 1;
+		 
+		ClimbingTracker2.failClimb(failArray1, 1, "V3");
+		failSize1 += 1;
+		ClimbingTracker2.failClimb(failArray1, 1, "V1");
+		failSize1 += 1;
+		ClimbingTracker2.failClimb(failArray1, 1, "V6");
+		failSize1 += 1;
+		
+		//예상
+		String expected1 = "Send: 4.5\n"+ "Fail: 3.5";
+		
+		//비교 
+		if(!(ClimbingTracker2.getStats(sendArray1, sendSize1, failArray1, failSize1, 2).equals( expected1))) {
+			System.out.println("failed test1");
+			return false;
+		}
+		
+		//scenario 2 : multiple situations of one grade
+		//배열 만든
+		String[] sendArray2 = new String[LEVELS_CAPACITY];
+		String[] failArray2 = new String[LEVELS_CAPACITY];
+		int sendSize2 = 0;
+		int failSize2 = 0;
+		
+		String expected2 = "Send: 2.0\n"+ "Fail: 3.6666666666666665";
+		
+		ClimbingTracker2.sendClimb(sendArray2, 2, "V1");
+		sendSize2 += 2;
+		ClimbingTracker2.sendClimb(sendArray2, 1, "V4");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray2, 2, "V1");
+		sendSize2 += 2;
+		
+		ClimbingTracker2.failClimb(failArray2, 1, "V3");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 2, "V1");
+		failSize2 += 2;
+		ClimbingTracker2.failClimb(failArray2, 1, "V6");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 1, "V4");
+		failSize2 += 1;
+				
+		//비교 
+		if(!(ClimbingTracker2.getStats(sendArray2, sendSize2, failArray2, failSize2, 3).equals(expected2))) {
+			System.out.println(ClimbingTracker2.getStats(sendArray2, sendSize2, failArray2, failSize2, 3));
+			System.out.println(expected2);
+			System.out.println("failed test2");
+			return false;
+		}
+	
+		return true;
+	}
+	public static boolean testGetHistogram(){
+		
+		final int LEVELS_CAPACITY = 5;
+		
+		//scenario 1 : a mix of grades
+		//배열을 만든다.
+		String[] sendArray1 = new String[LEVELS_CAPACITY];
+		String[] failArray1 = new String[LEVELS_CAPACITY];
+		int sendSize1 = 0;
+		int failSize1 = 0;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V1");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V2");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V3");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V4");
+		sendSize1 += 1;
+		ClimbingTracker2.sendClimb(sendArray1, 1, "V5");
+		sendSize1 += 1;
+				 
+		ClimbingTracker2.failClimb(failArray1, 1, "V3");
+		failSize1 += 1;
+		ClimbingTracker2.failClimb(failArray1, 1, "V1");
+		failSize1 += 1;
+		ClimbingTracker2.failClimb(failArray1, 1, "V6");
+		failSize1 += 1;
+				
+		//예상
+		String expected1 = "V0: \n"+ "V1: - + \n"+ "V2: + \n"+ "V3: - + \n"+ "V4: + \n"+ "V5: + \n"+ "V6: - \n" + "";
+				
+		//비교 
+		if(!(ClimbingTracker2.getHistogram(sendArray1, sendSize1, failArray1, failSize1).equals(expected1))) {
+			System.out.println(ClimbingTracker2.getHistogram(sendArray1, sendSize1, failArray1, failSize1));
+			System.out.println(expected1);
+			System.out.println("failed test1");
+			return false;
+		}
+				
+		//scenario 2 : multiple situations of one grade
+		//배열 만든
+		String[] sendArray2 = new String[LEVELS_CAPACITY];
+		String[] failArray2 = new String[LEVELS_CAPACITY];
+		int sendSize2 = 0;
+		int failSize2 = 0;
+				
+		String expected2 = "V0: \n"+ "V1: - - + + + + \n"+ "V2: \n"+ "V3: - \n"+ "V4: - + \n"+ "V5: \n"+ "V6: - \n"+ "";
+				
+		ClimbingTracker2.sendClimb(sendArray2, 2, "V1");
+		sendSize2 += 2;
+		ClimbingTracker2.sendClimb(sendArray2, 1, "V4");
+		sendSize2 += 1;
+		ClimbingTracker2.sendClimb(sendArray2, 2, "V1");
+		sendSize2 += 2;
+				
+		ClimbingTracker2.failClimb(failArray2, 1, "V3");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 2, "V1");
+		failSize2 += 2;
+		ClimbingTracker2.failClimb(failArray2, 1, "V6");
+		failSize2 += 1;
+		ClimbingTracker2.failClimb(failArray2, 1, "V4");
+		failSize2 += 1;
+						
+		//비교 
+		if(!(ClimbingTracker2.getHistogram(sendArray2, sendSize2, failArray2, failSize2).equals(expected2))) {
+			System.out.println(ClimbingTracker2.getHistogram(sendArray2, sendSize2, failArray2, failSize2));
+			System.out.println("failed test2");
+			return false;
+		}
+		
+		return true;
+	}
+	public static boolean runAllTests(){
+		if(!(testFailClimb() == true && testSendClimb() == true)) {
+			System.out.println("Failed Fail/Climb()");
+			return false;
+		}
+		if(!(testGetStats() == true)) {
+			System.out.println("Failed testGetStats()");
+			return false;
+		}
+		if(!(testGetHistogram() == true)) {
+			System.out.println("Failed testGetHistogram()");
+			return false;
+		}
+	
+		return true;
+	}
+	public static void main(String[] args){
+		System.out.print(runAllTests());
+		
+	}
+
+
+}

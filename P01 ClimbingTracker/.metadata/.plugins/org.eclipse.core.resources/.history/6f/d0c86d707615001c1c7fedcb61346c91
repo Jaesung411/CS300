@@ -1,0 +1,48 @@
+
+public class Try {
+
+	public static boolean testTotal() {
+		String items = new String[] {"apples","banana"};
+		int[] num = new int[] {5,5};
+		double[] prices = new double[] {1.0,1.0};
+		double expected =10;
+		if(otherClass.getTotal(items,num,prices) == expected) {
+			System.out.println("faliled test1");
+			return false;
+		}
+		
+		double[] otherPrices = new double[] {0.5,0.5};
+		double expected2 =10;
+		if(otherClass.getTotal(items,num,prices) == expected) {
+			return false;
+		}
+		
+	}
+}
+
+public static int helper(String[] t, int num, String grade){
+//  if (num == t.length) {        //크기 초과시 감지 못하고 어레이 인덱스 오류
+//      return num;
+//  }
+
+  if(num + levelSize > t.length)      //배열 크기 초과시 리턴
+      return num;
+
+  for(int i = 0; i < num; i++) {
+      t[num+levelSize-1-i] = grade;
+  }
+  levelSize = levelSize + num;
+  ++num;
+  return num;
+}
+
+
+	
+
+		
+		
+		
+		
+		
+
+

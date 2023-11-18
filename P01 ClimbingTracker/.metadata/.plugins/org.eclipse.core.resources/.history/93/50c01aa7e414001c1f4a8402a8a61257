@@ -1,0 +1,160 @@
+
+
+public class Test1 {
+
+		public static boolean testSendClimb() {
+			final int LEVELS_CAPACITY = 5;
+			int size = 0;
+			int zero = 0;
+			
+			//scenario 1 : empty array
+			String[] sendArray1 = new String[LEVELS_CAPACITY];
+			double expected1 = 0;
+			String grade= null;
+			ClimbingTracker.sendClimb(sendArray1, zero, grade);
+			if(!(ClimbingTracker.sendClimb(sendArray1, zero, grade) == expected1)) {
+				System.out.println("faliled test1");
+				return false;
+			}
+			
+			//scenario 2 : partially array
+			String[] sendArray2 = new String[LEVELS_CAPACITY];
+			int expected2 = 3;
+			ClimbingTracker.sendClimb(sendArray2, 1, "V1");
+			ClimbingTracker.sendClimb(sendArray2, 2, "V2");
+			if(!(ClimbingTracker.sendClimb(sendArray2, zero, grade) == expected2)) {
+				System.out.println("faliled test2");
+				return false;
+			}
+			
+			//scenario 3 : completely full array
+			String[] sendArray3 = new String[LEVELS_CAPACITY];
+			int expected3 = 5;
+			ClimbingTracker.sendClimb(sendArray3, 1, "V1");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V2");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V3");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V4");
+			ClimbingTracker.sendClimb(sendArray3, 1, "V5");
+			if(!(ClimbingTracker.sendClimb(sendArray3, zero, grade) == expected3)) {
+				System.out.println("faliled test3");
+				return false;
+			}
+			
+
+//			//scenario 4 : valid and invalid grades
+//			if(!(grade2[0].charAt(0) == 'V' && grade2[0].length() == 2 && Character.isDigit(grade2[1].charAt(1)))) {
+//				System.out.println("faliled test4");
+//				return false;
+//			}			
+
+			return true;
+		}
+		public static boolean testFailClimb() {
+			final int LEVELS_CAPACITY = 5;
+			String[] failArray1 = new String[LEVELS_CAPACITY];
+			String[] failArray2 = new String[LEVELS_CAPACITY];
+			String[] failArray3 = new String[LEVELS_CAPACITY];
+			int zero = 0;
+			
+			//scenario 1 : empty array
+			String grade= null;
+			ClimbingTracker.sendClimb(failArray1, zero, grade);
+			if(!(ClimbingTracker.sendClimb(failArray1, zero, grade) == 0)) {
+				return false;
+			}
+			
+			//scenario 2 : partially array
+			ClimbingTracker.sendClimb(failArray2, 1, "V1");
+			ClimbingTracker.sendClimb(failArray2, 1, "V2");
+			ClimbingTracker.sendClimb(failArray2, 1, "V3");
+			if(!(ClimbingTracker.sendClimb(failArray2, zero, grade) == 3)) {
+				return false;
+			}
+			
+			//scenario 3 : completely full array
+			ClimbingTracker.sendClimb(failArray3, 1, "V1");
+			ClimbingTracker.sendClimb(failArray3, 1, "V2");
+			ClimbingTracker.sendClimb(failArray3, 1, "V3");
+			ClimbingTracker.sendClimb(failArray3, 1, "V4");
+			ClimbingTracker.sendClimb(failArray3, 1, "V5");
+			if(!(ClimbingTracker.sendClimb(failArray3, zero, grade) == 5)) {
+				return false;
+			}
+			return true;
+		}
+		public static boolean testGetStats(){
+			
+			final int LEVELS_CAPACITY = 5;
+			
+			//scenario 1 : a mix of grades
+			
+			String[] sendArray1 = new String[LEVELS_CAPACITY];
+			String[] failArray1 = new String[LEVELS_CAPACITY];
+			int sendSize1 = 0;
+			int failSize1 = 0;
+			int[] sendNum1 = new int[] {1,1,2};
+			int[] failNum1 = new int[] {1,1};
+			String[] sendGrade1 = new String[] {"V0","V1","V2"};
+			String[] failGrade1 = new String[] {"V2","V1"};
+			String expected1 = "Send: 0 "+"\n"+  "Fail:1.5" ;
+			
+			for(int i = 0; i < sendGrade1.length; i++) {
+				ClimbingTracker.sendClimb(sendArray1, sendNum1[i], sendGrade1[i]);
+				sendSize1++;
+			}
+			printOversizeArray(sendArray1, sendSize1);
+			for(int i = 0; i < failGrade1.length; i++) {
+				ClimbingTracker.failClimb(failArray1, failNum1[i], failGrade1[i]);
+				failSize1++;
+			}
+			
+			if(!(ClimbingTracker.getStats(sendArray1, sendSize1, failArray1, failSize1, 2)==expected1)) {
+				return false;
+			}
+			
+			return true;
+		}
+		public static boolean testGetHistogram(){
+			return true;
+		}
+		public static boolean runAllTests(){
+			if(!(testFailClimb() == true && testSendClimb() == true)) {
+				return false;
+			}
+			if(!(testGetStats() == true)) {
+				return false;
+			}
+		
+			return true;
+		}
+		public static void main(String[] args){
+			System.out.print((runAllTests()));
+			
+		}
+	
+	
+		public static void printOversizeArray(String[ ]arrayRef, int arraySize) {
+			int index;
+			int levelSize = 0;
+			
+			System.out.print("[");
+			for(index=0; index < arraySize; ++index){
+				System.out.print(arrayRef[index]);
+				if(index != arraySize) {
+					System.out.print(",");
+				}
+			}
+			System.out.print("]  ");
+
+			for(int i = 0; i < arrayRef.length; i++) {
+				if(arrayRef[i] == null) {
+					break;
+				}
+				levelSize++;
+			}
+			System.out.println("numSend: "+ levelSize);
+		}
+
+	}
+
+

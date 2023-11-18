@@ -1,0 +1,161 @@
+public class Practice5 {
+		static int totalNumSend = 0;
+		static int totalNumFail = 0;
+		private static int helper(String[] array, int num, String grade){
+			int temp=0;
+			if (num == array.length) {
+				return num;
+			}
+			for(int i = 0; i < num; i++) {
+				array[num+temp-1-i] = grade;
+			}
+			totalNumSend += num;
+			++num;
+			return num;
+		}
+		public static int sendClimb(String[] send, int numSend, String grade) {
+			return helper(send, numSend, grade);
+			
+		}
+		public static int failClimb(String[] fail, int numFail, String grade) {
+			return helper(fail, numFail, grade);
+		}
+		
+//		public static String getStats(String[] send, int numSend, String[] fail, int numFail, int historyLength) {
+//		double sum1 =0.0;
+//		double sum2 =0.0;
+//
+//		int n = 0, m = 0;
+//		if(historyLength > numSend){
+//		    n = numSend;
+//		}else{
+//		    n = historyLength;
+//		}
+//
+//		if(historyLength > numFail){
+//		    m = numFail;
+//		}else{
+//		    m = historyLength;
+//		}	
+//		
+//		for(int i = numSend-1; i > numSend-n-1 ; i--) {
+//			int temp1 = Integer.parseInt(send[i].substring(1));
+//			sum1 = sum1 + temp1;
+//			
+//		}
+//		for(int i = numFail-1; i > numFail-m-1 ; i--) {
+//			int temp2 = Integer.parseInt(fail[i].substring(1));
+//			sum2 = sum2 + temp2;
+//			
+//			
+//		}
+//		double av1 = sum1/n;
+//		double av2 = sum2/m;
+//		if(numSend==0) {
+//			return "Send: --" +"\n"+"Fail:" +av2;
+//		}
+//		if(numFail==0) {
+//			return "Send: "+ av1 +"\n"+"Fail: --";
+//		}
+//		if(historyLength <= 0) {
+//			return "Send: --" +"\n"+"Fail: --";
+//		}
+//		return "Send: "+ av1 +"\n"+"Fail:" +av2;
+//
+//		
+//	}
+		
+//	public static String getHistogram(String[] send,int numSend, String[] fail, int numFail) {
+//		int sum = 1;
+//		String temp = "";
+//		
+//		for(int i = 0; i < 4; i++) {
+//			temp = send[i];
+//			
+//		    for(int j = i+1; j < 4 - i; j++) {
+//		    	if ( send[i]==send[j] ) {
+//		    		sum += 1 ;
+//		    	}
+//		    }
+//		    while(sum>0) {
+//				temp += "+";
+//				sum--;
+//			}
+//
+//
+//		}	
+//		while(sum>0) {
+//			temp += "+";
+//			sum--;
+//		}
+//		return temp;
+//		
+//	}
+
+		
+	public static void main(String[] args) {
+			final int LEVELS_CAPACITY = 6;
+			int numSend = 0;
+			int numFail = 0;
+			String[] sendArray = new String[LEVELS_CAPACITY];
+			
+			String[] failArray = new String[LEVELS_CAPACITY];
+		
+			
+			sendClimb(sendArray, 1, "V0");
+			sendClimb(sendArray, 1, "V1");
+			sendClimb(sendArray, 2, "V0");
+			printOversizeArray(sendArray, 6);
+		
+			failClimb(failArray, 1, "V2");
+			failClimb(failArray, 1, "V1");
+			overSizeArray(failArray, 6);
+
+			for(int i=0; i<sendArray.length; i++) {
+				if(sendArray[i] == null) {
+					break;
+				}
+				numSend++;
+			}
+			for(int i=0; i<failArray.length; i++) {
+				if(failArray[i] == null) {
+					break;
+				}
+				numFail++;
+			}
+//			System.out.println(getStats(sendArray, numSend, failArray , numFail, 2));
+//			System.out.println(getHistogram(level, numSend, lev , numFail));
+//			
+			
+		}
+		public static void printOversizeArray(String[ ]arrayRef, int arraySize) {
+			int index;
+			
+			System.out.print("[");
+			for(index=0; index < arraySize; ++index){
+				System.out.print(arrayRef[index]);
+				if(index != arraySize) {
+					System.out.print(",");
+				}
+			}
+			System.out.print("]  ");
+			System.out.println("numSend: "+ totalNumSend);
+		}
+		public static void overSizeArray(String[ ]arrayRef, int arraySize) {
+			int index;
+			
+			System.out.print("[");
+			for(index=0; index < arraySize; ++index){
+				System.out.print(arrayRef[index]);
+				if(index != arraySize) {
+					System.out.print(",");
+				}
+			}
+			System.out.print("]  ");
+			System.out.println("numFail: "+ totalNumFail);
+		}
+	}
+
+		
+
+		
